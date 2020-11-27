@@ -1,6 +1,6 @@
 import argparse
 import os
-from PIL import Image
+from utils import load_img, imshow
 
 parser = argparse.ArgumentParser(description='Enter content image and styling image')
 
@@ -15,9 +15,8 @@ data_dir = './data'
 content_dir = os.path.join(data_dir,args.content)
 style_dir = os.path.join(data_dir,args.style)
 
-content_image = Image.open(content_dir)
-style_image = Image.open(style_dir)
+content_image = load_img(content_dir)
+style_image = load_img(style_dir)
 
-content_image.show()
-style_image.show()
-
+imshow(content_image)
+imshow(style_image)
