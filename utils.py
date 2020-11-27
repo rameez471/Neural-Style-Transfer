@@ -44,13 +44,12 @@ def imshow(image, title=None):
 
 def vgg_layers(layer_names):
     '''Create a vgg model that return intermediate values'''
-    print('Downloading VGG19 model...')
-    vgg = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
+    vgg = tf.keras.models.load_model('vgg19.h5')
     vgg.trainable = False
-    print('VGG19 Downloaded')
+    vgg.save('vgg19.h5')
 
     outputs = [vgg.get_layer(name).output for name in layer_names]
-    model  = Model([vgg.input], outputs)
+    model  = tf.keras.Model([vgg.input], outputs)
 
     return model
 
@@ -61,3 +60,6 @@ def gram_matrix(input_tensor):
     num_locations = tf.cast(input_shape[1]*input_shape[2], tf.float32)
 
     return result/num_locations
+
+def clip(image):
+        return tf.clip_by_value(image,clip_value_min=0.0, clip_value_max=1.0)

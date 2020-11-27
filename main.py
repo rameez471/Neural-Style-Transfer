@@ -1,6 +1,7 @@
 import argparse
 import os
 from utils import load_img, imshow
+from model import TransferModel
 
 parser = argparse.ArgumentParser(description='Enter content image and styling image')
 
@@ -18,5 +19,7 @@ style_dir = os.path.join(data_dir,args.style)
 content_image = load_img(content_dir)
 style_image = load_img(style_dir)
 
-imshow(content_image)
-imshow(style_image)
+model = TransferModel(style_image, content_image)
+result = model.fit()
+
+imshow(result)

@@ -25,7 +25,7 @@ class StyleContentModel(Model):
 
     def call(self,inputs):
         inputs = inputs * 255.0
-        preprocessed_input = tf.keras.applications.vgg19.preprocessed_input(inputs)
+        preprocessed_input = tf.keras.applications.vgg19.preprocess_input(inputs)
         outputs = self.vgg(preprocessed_input)
         style_outputs, content_outputs = (outputs[:self.num_style_layers],
                                           outputs[self.num_style_layers:])
@@ -92,3 +92,4 @@ class TransferModel:
         end = time.time()
 
         print('Total time: {:.1f}'.format(end - start))
+        return self.image
